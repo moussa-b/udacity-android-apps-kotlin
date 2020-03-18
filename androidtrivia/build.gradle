@@ -25,7 +25,7 @@ android {
         enabled = true
     }
     defaultConfig {
-        applicationId 'com.example.android.navigation'
+        applicationId 'fr.bdmz.androidtrivia'
         minSdkVersion 19
         targetSdkVersion 28
         vectorDrawables.useSupportLibrary = true
