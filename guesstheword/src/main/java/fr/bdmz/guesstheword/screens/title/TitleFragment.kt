@@ -23,8 +23,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import fr.bdmz.guessit.R
-import fr.bdmz.guessit.databinding.TitleFragmentBinding
+import fr.bdmz.guesstheword.R
+import fr.bdmz.guesstheword.databinding.TitleFragmentBinding
 
 /**
  * Fragment for the starting or title screen of the app

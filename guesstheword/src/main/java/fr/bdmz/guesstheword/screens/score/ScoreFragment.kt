@@ -22,15 +22,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import fr.bdmz.guessit.R
-import fr.bdmz.guessit.databinding.ScoreFragmentBinding
+import fr.bdmz.guesstheword.R
+import fr.bdmz.guesstheword.databinding.ScoreFragmentBinding
 
 /**
  * Fragment where the final score is shown, after the game is over
  */
 class ScoreFragment : Fragment() {
+
+    private lateinit var scoreViewModelFactory: ScoreViewModelFactory
+    private lateinit var scoreViewModel: ScoreViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -48,13 +53,23 @@ class ScoreFragment : Fragment() {
 
         // Get args using by navArgs property delegate
         val scoreFragmentArgs by navArgs<ScoreFragmentArgs>()
-        binding.scoreText.text = scoreFragmentArgs.score.toString()
-        binding.playAgainButton.setOnClickListener { onPlayAgain() }
+        scoreViewModelFactory = ScoreViewModelFactory(scoreFragmentArgs.score)
+        scoreViewModel =
+            ViewModelProvider(this, scoreViewModelFactory).get(ScoreViewModel::class.java)
+        binding.scoreViewModel = scoreViewModel
+        binding.lifecycleOwner = this
+
+        scoreViewModel.eventPlayAgain.observe(viewLifecycleOwner, Observer { playAgain ->
+            if (playAgain) {
+                onPlayAgain()
+            }
+        })
 
         return binding.root
     }
 
     private fun onPlayAgain() {
+        scoreViewModel.togglePlayAgain(false)
         findNavController().navigate(ScoreFragmentDirections.actionRestart())
     }
 }

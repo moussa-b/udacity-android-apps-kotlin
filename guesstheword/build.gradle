@@ -9,7 +9,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "fr.bdmz.guessit"
+        applicationId "fr.bdmz.guesstheword"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -45,4 +45,6 @@ dependencies {
     // Navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
     implementation "android.arch.navigation:navigation-ui-ktx:1.0.0"
+
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 }

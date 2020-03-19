@@ -1,4 +1,4 @@
-package fr.bdmz.guessit
+package fr.bdmz.guesstheword
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package fr.bdmz.guessit
+package fr.bdmz.guesstheword
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
