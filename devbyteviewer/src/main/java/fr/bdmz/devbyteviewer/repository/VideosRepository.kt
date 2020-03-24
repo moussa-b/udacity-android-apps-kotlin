@@ -16,3 +16,27 @@
  */
 
 package fr.bdmz.devbyteviewer.repository
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
+import fr.bdmz.devbyteviewer.database.VideosDatabase
+import fr.bdmz.devbyteviewer.database.asDomainModel
+import fr.bdmz.devbyteviewer.domain.Video
+import fr.bdmz.devbyteviewer.network.Network
+import fr.bdmz.devbyteviewer.network.asDatabaseModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
+class VideosRepository(private val database: VideosDatabase) {
+    val videos: LiveData<List<Video>> = Transformations.map(database.videoDao.getVideos()) {
+        it.asDomainModel()
+    }
+
+    suspend fun refreshVideos() {
+        withContext(Dispatchers.IO) {
+            val playlist = Network.devbytes.getPlaylist().await()
+            // the asterisk * is the spread operator. It allows you to pass in an array to a function that expects varargs.
+            database.videoDao.insertAll(*playlist.asDatabaseModel())
+        }
+    }
+}
